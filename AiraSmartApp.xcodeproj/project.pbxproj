@@ -15,6 +15,8 @@
 		8B74AE791BE9C5CE0009E99C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B74AE771BE9C5CE0009E99C /* LaunchScreen.storyboard */; };
 		8B74AE841BE9C5CE0009E99C /* AiraSmartAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B74AE831BE9C5CE0009E99C /* AiraSmartAppTests.swift */; };
 		8B74AE8F1BE9C5CE0009E99C /* AiraSmartAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B74AE8E1BE9C5CE0009E99C /* AiraSmartAppUITests.swift */; };
+		8B74AEA21BEBCAB60009E99C /* TcpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B74AEA11BEBCAB60009E99C /* TcpServer.swift */; };
+		8B74AEA41BEBCB030009E99C /* CommandParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B74AEA31BEBCB030009E99C /* CommandParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		8B74AE8E1BE9C5CE0009E99C /* AiraSmartAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AiraSmartAppUITests.swift; sourceTree = "<group>"; };
 		8B74AE901BE9C5CE0009E99C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B74AE9E1BEAB9840009E99C /* AiraSmartApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AiraSmartApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		8B74AEA11BEBCAB60009E99C /* TcpServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TcpServer.swift; sourceTree = "<group>"; };
+		8B74AEA31BEBCB030009E99C /* CommandParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandParser.swift; sourceTree = "<group>"; };
 		B16038E78FA56BE8A6980355 /* Pods_AiraSmartApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AiraSmartApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D267C5B0207BED4D0F2777CD /* Pods-AiraSmartApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AiraSmartApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AiraSmartApp/Pods-AiraSmartApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +124,8 @@
 				8B74AE771BE9C5CE0009E99C /* LaunchScreen.storyboard */,
 				8B74AE7A1BE9C5CE0009E99C /* Info.plist */,
 				8B74AE9E1BEAB9840009E99C /* AiraSmartApp-Bridging-Header.h */,
+				8B74AEA11BEBCAB60009E99C /* TcpServer.swift */,
+				8B74AEA31BEBCB030009E99C /* CommandParser.swift */,
 			);
 			path = AiraSmartApp;
 			sourceTree = "<group>";
@@ -336,6 +342,8 @@
 			files = (
 				8B74AE711BE9C5CE0009E99C /* ViewController.swift in Sources */,
 				8B74AE6F1BE9C5CE0009E99C /* AppDelegate.swift in Sources */,
+				8B74AEA41BEBCB030009E99C /* CommandParser.swift in Sources */,
+				8B74AEA21BEBCAB60009E99C /* TcpServer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
