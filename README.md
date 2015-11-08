@@ -12,4 +12,6 @@ simple smart app for glass
 Pre-requsisites
 * iPhone with iOS 9+
 * Developer account at developer.apple.com (can be free version)
-* Follow this link to trust the app [Verify trust](https://support.apple.com/en-us/HT204460)
+* For first time follow this link to trust the app [Verify trust](https://support.apple.com/en-us/HT204460)
+
+#### Note : both the tcp server and client should be on same wifi  
