@@ -11,6 +11,11 @@ import CocoaAsyncSocket
 
 let TCPServerReceivedMessageNotification: String = "TCPServerReceivedMessageNotification"
 
+enum TcpServerError : ErrorType {
+    case WifiOrHotspotNotEnabled
+    case StartServerFailed
+}
+
 class TcpServer : NSObject,  GCDAsyncSocketDelegate {
     
     private var listenSocket : GCDAsyncSocket!
@@ -34,7 +39,7 @@ class TcpServer : NSObject,  GCDAsyncSocketDelegate {
     }
     
     /**
-     Starts a tcp server
+     Starts a tcp server on wifi or hotspot
      
      - throws: NSerror if failed
      - returns: true if server is started
@@ -48,8 +53,15 @@ class TcpServer : NSObject,  GCDAsyncSocketDelegate {
                 // TODO : get this from UI ?
             
             do {
-                try listenSocket.acceptOnPort(port)
-                serverAddress = getWiFiAddress()!
+                
+                if let ipaddress = getWiFiAddress() {
+                    self.serverAddress = ipaddress
+                    try listenSocket.acceptOnPort(port)
+                } else {
+                    appendToLog("No hotspot or wifi address found Cannot start server as ")
+                    throw TcpServerError.WifiOrHotspotNotEnabled
+                }
+                
             } catch{
                 
                 print("Error unable to start server on port:",error)
@@ -159,7 +171,7 @@ class TcpServer : NSObject,  GCDAsyncSocketDelegate {
     /**
     Get all addresses of the phone.
     
-    - returns: Return IP address of WiFi interface (en0) as a String, or `nil`
+    - returns: Return IP address of WiFi interface (en0) or hotspot address as a String, or `nil`
     */
 
     func getWiFiAddress() -> String? {
@@ -173,21 +185,32 @@ class TcpServer : NSObject,  GCDAsyncSocketDelegate {
             for (var ptr = ifaddr; ptr != nil; ptr = ptr.memory.ifa_next) {
                 let interface = ptr.memory
                 
+                var tempAddr : String?
+                
                 // Check for IPv4 or IPv6 interface:
                 let addrFamily = interface.ifa_addr.memory.sa_family
                 if addrFamily == UInt8(AF_INET) || addrFamily == UInt8(AF_INET6) {
                     
-                    // Check interface name:
+                    // Convert interface address to a human readable string:
+                    var addr = interface.ifa_addr.memory
+                    var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
+                    getnameinfo(&addr, socklen_t(interface.ifa_addr.memory.sa_len),
+                        &hostname, socklen_t(hostname.count),
+                        nil, socklen_t(0), NI_NUMERICHOST)
+                    tempAddr = String.fromCString(hostname)
+                    
+                    // Check interface name: WIFI
                     if let name = String.fromCString(interface.ifa_name) where name == "en0" {
-                        
-                        // Convert interface address to a human readable string:
-                        var addr = interface.ifa_addr.memory
-                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
-                        getnameinfo(&addr, socklen_t(interface.ifa_addr.memory.sa_len),
-                            &hostname, socklen_t(hostname.count),
-                            nil, socklen_t(0), NI_NUMERICHOST)
-                        address = String.fromCString(hostname)
+                        address = tempAddr
+                        self.appendToLog("available WIFI address")
+             
                     }
+                    // Check interface name: hotspot
+                    if let name = String.fromCString(interface.ifa_name) where name == "pdp_ip0" {
+                        self.appendToLog("Hotspot enabled..")
+                        address = tempAddr
+                    }
+
                 }
             }
             freeifaddrs(ifaddr)

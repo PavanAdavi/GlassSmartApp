@@ -51,6 +51,8 @@ class ViewController: UIViewController {
                     object: nil
                 )
                 
+            } catch TcpServerError.WifiOrHotspotNotEnabled {
+                lblLogLabel.text = "Error : Unable to start tcp server.\nTurn on Wifi or Enable hotspot and try again  "
             } catch {
                 lblLogLabel.text = "Error : Unable to start tcp server. \n\(error) "
             }
